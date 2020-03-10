@@ -33,9 +33,3 @@ fun <T> ListView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> Coll
             })
         }
 
-
-fun test() {
-
-    val x = QueryResult(1,listOf("Lele"))
-
-}

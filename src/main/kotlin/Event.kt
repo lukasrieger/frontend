@@ -10,7 +10,6 @@ sealed class ErrorEvent : Event() {
 
     object Undefined : ErrorEvent()
 
-
 }
 
 sealed class InfoEvent : Event() {
@@ -18,7 +17,4 @@ sealed class InfoEvent : Event() {
         object AppStarted : InfoEvent()
         class ArticleSaved(val article: Article) : InfoEvent()
         class ArticleCreated(val article: Article) : InfoEvent()
-
-
-
 }

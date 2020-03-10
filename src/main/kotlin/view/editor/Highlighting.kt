@@ -54,7 +54,7 @@ class MarkdownMatcher {
     }
 
 
-    fun highlightMarkdown(doc: Document): StyleSpans<String>? {
+    fun highlightMarkdown(doc: Document): StyleSpans<String> {
         val visitors = NodeVisitor(
             VisitHandler(StrongEmphasis::class.java, ::handleNode),
             VisitHandler(Emphasis::class.java, ::handleNode),
