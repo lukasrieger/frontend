@@ -29,11 +29,3 @@ val typhoonErrorHandler: (String,Throwable) -> Unit = { message, err ->
         }
     )
 }
-
-inline fun <reified T> launchCatching(message: String, co: () -> T) =
-    try {
-        co()
-    } catch(e: Throwable) {
-        typhoonErrorHandler(message,e)
-        throw e
-    }

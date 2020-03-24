@@ -4,15 +4,13 @@ import arrow.fx.IO
 import arrow.fx.extensions.fx
 import javafx.scene.web.WebView
 import kotlinx.coroutines.Dispatchers
+import model.Article
 import org.fxmisc.richtext.InlineCssTextArea
 import tornadofx.*
 import typhoonErrorHandler
 import viewmodel.ArticleModel
 
-class ArticleEditor(
-    //private val article: Article
-) : View("Article Editor") {
-
+class ArticleEditor : View("Article Editor") {
 
     private lateinit var editor: InlineCssTextArea
 
@@ -41,6 +39,9 @@ class ArticleEditor(
         }
 
         top = hbox {
+
+            label(articleModel.title)
+            label("TestLabel")
 
             button("BOLD") {
                 insets(20, 20, 20, 20)
