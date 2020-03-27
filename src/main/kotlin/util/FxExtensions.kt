@@ -1,10 +1,7 @@
 package util
 
 
-import TyphoonEventBus
 import arrow.fx.ForIO
-import arrow.fx.IO
-import arrow.fx.extensions.fx
 import arrow.fx.typeclasses.ConcurrentSyntax
 import javafx.scene.control.ListView
 import javafx.scene.control.TableView
@@ -17,7 +14,7 @@ fun <T> TableView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> Que
             result.fold({
                 it.printStackTrace()
                 TyphoonEventBus += ErrorEvent.Undefined
-            },{ (articles) ->
+            }, { (articles) ->
                 items.setAll(articles)
             })
         }
@@ -28,7 +25,7 @@ fun <T> ListView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> Coll
             result.fold({
                 it.printStackTrace()
                 TyphoonEventBus += ErrorEvent.Undefined
-            },{
+            }, {
                 items.setAll(it)
             })
         }
@@ -36,6 +33,6 @@ fun <T> ListView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> Coll
 
 fun test() {
 
-    val x = QueryResult(1,listOf("Lele"))
+    val x = QueryResult(1, listOf("Lele"))
 
 }

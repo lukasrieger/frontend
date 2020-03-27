@@ -4,9 +4,9 @@ import arrow.fx.IO
 import arrow.fx.extensions.fx
 import javafx.scene.web.WebView
 import kotlinx.coroutines.Dispatchers
-import model.Article
 import org.fxmisc.richtext.InlineCssTextArea
-import tornadofx.*
+import tornadofx.View
+import tornadofx.insets
 import typhoonErrorHandler
 import viewmodel.ArticleModel
 
@@ -84,7 +84,7 @@ class ArticleEditor : View("Article Editor") {
 
                     .unsafeRunAsync { either ->
                         either.fold(
-                            ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!",it) },
+                            ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!", it) },
                             ifRight = {}
                         )
                     }

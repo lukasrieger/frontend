@@ -97,8 +97,7 @@ object MarkdownHandlerIO {
             .default()
             .parMapN(
                 renderIO,
-                highlightIO
-                , ::Pair
+                highlightIO, ::Pair
             )
 
         renderAndHighlightPar

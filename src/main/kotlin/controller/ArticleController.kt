@@ -1,12 +1,16 @@
 package controller
 
+import ErrorEvent
 import TyphoonEventBus
 import arrow.core.Either
 import arrow.core.extensions.either.applicativeError.handleErrorWith
 import model.Article
 import mu.KotlinLogging
 import org.koin.core.KoinComponent
-import repository.*
+import repository.ArticleRepository
+import repository.PrimaryKey
+import repository.Result
+import repository.ValidArticle
 import tornadofx.Controller
 import validation.ArticleValidator
 import org.koin.core.inject as insert
@@ -21,7 +25,6 @@ object ArticleController : KoinComponent, Controller() {
     /**
      * Saves the given article to the database without performing any validation
      * @param article Article
-     * @return Completable
      */
     suspend fun saveArticle(article: ValidArticle): Result<PrimaryKey<Article>> =
         articleRepository.update(article).handleErrorWith {

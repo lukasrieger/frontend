@@ -3,11 +3,11 @@ import mu.KotlinLogging
 
 
 object TyphoonEventBus {
-    operator fun plusAssign(event: Event ) {}
+    operator fun plusAssign(event: Event) {}
 }
 
 private val logger = KotlinLogging.logger {}
-val typhoonErrorHandler: (String,Throwable) -> Unit = { message, err ->
+val typhoonErrorHandler: (String, Throwable) -> Unit = { message, err ->
     logger.error(err) { message }
     tornadofx.error(
         header = "Ein Fehler ist aufgetreten",
@@ -23,8 +23,10 @@ val typhoonErrorHandler: (String,Throwable) -> Unit = { message, err ->
                 """.trimMargin(),
         actionFn = {
             when (it) {
-                ButtonType.OK -> {}
-                else -> {}
+                ButtonType.OK -> {
+                }
+                else -> {
+                }
             }
         }
     )
