@@ -28,12 +28,13 @@ class ArticleEditor : View("Article Editor") {
                 it.setMinSize(800.0, 300.0)
                 it.isWrapText = true
                 it.updateOnChange()
+                it.style = "-fx-font-family: consolas; -fx-font-size: 15px; -fx-font-smoothing-type: gray;"
+
             }
             separator()
             webview {
-                engine.userStyleSheetLocation = "data:,body { font: 12px Arial; }"
+                engine.userStyleSheetLocation = "data:,body { font: 18px consolas; }"
                 webView = this
-
             }
 
         }
@@ -77,7 +78,9 @@ class ArticleEditor : View("Article Editor") {
 
                     continueOn(Dispatchers.Main)
 
-                    setStyleSpans(0, styles)
+                    if (styles.length() <= editor.text.length) {
+                        setStyleSpans(0, styles)
+                    }
                     webView.engine.loadContent(rendered)
 
                 }
