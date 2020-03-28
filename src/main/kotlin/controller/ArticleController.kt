@@ -1,13 +1,16 @@
 package controller
 
+import ErrorEvent
 import TyphoonEventBus
 import arrow.core.Either
-import arrow.core.extensions.either.applicativeError.handleError
 import arrow.core.extensions.either.applicativeError.handleErrorWith
 import model.Article
 import mu.KotlinLogging
 import org.koin.core.KoinComponent
-import repository.*
+import repository.ArticleRepository
+import repository.PrimaryKey
+import repository.Result
+import repository.ValidArticle
 import tornadofx.Controller
 import validation.ArticleValidator
 import org.koin.core.inject as insert
@@ -27,11 +30,9 @@ object ArticleController : KoinComponent, Controller() {
      */
     suspend fun saveArticle(article: ValidArticle): Result<PrimaryKey<Article>> =
         articleRepository.update(article).handleErrorWith {
-            TyphoonEventBus += ErrorEvent.CouldNotUpdateArticle(article.a,it)
+            TyphoonEventBus += ErrorEvent.CouldNotUpdateArticle(article.a, it)
             Either.left(it)
         }
-
-
 
 
     /**
@@ -40,7 +41,7 @@ object ArticleController : KoinComponent, Controller() {
      */
     suspend fun createArticle(article: ValidArticle): Result<Article> =
         articleRepository.create(article).handleErrorWith {
-            TyphoonEventBus += ErrorEvent.CouldNotCreateArticle(article.a,it)
+            TyphoonEventBus += ErrorEvent.CouldNotCreateArticle(article.a, it)
             Either.left(it)
         }
 
