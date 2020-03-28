@@ -11,6 +11,7 @@ import repository.ContactReader
 import repository.dao.ArticlesTable
 import repository.extensions.getContactPartners
 import tornadofx.Controller
+import util.long
 import org.koin.core.inject as insert
 
 class OverviewController : KoinComponent, Controller() {
@@ -52,5 +53,3 @@ class OverviewController : KoinComponent, Controller() {
     }
 }
 
-val Int.long
-    get() = this.toLong()
