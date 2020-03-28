@@ -1,18 +1,13 @@
 package controller
 
 import arrow.core.None
-import launchCatching
 import model.*
-import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.Query
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.joda.time.DateTime
 import org.koin.core.KoinComponent
-import org.koin.core.inject
 import repository.ArticleRepository
 import repository.ContactReader
-import repository.Repository
 import repository.dao.ArticlesTable
 import repository.extensions.getContactPartners
 import tornadofx.Controller
@@ -26,13 +21,11 @@ class OverviewController : KoinComponent, Controller() {
     private val contactRepository: ContactReader by insert()
 
 
-
-
     suspend fun getArticles(page: Int, query: Query? = null) =
         articleRepository.byQuery(
             query = query ?: ArticlesTable.selectAll(),
             limit = articlesPerPage,
-            offset = articlesPerPage * page
+            offset = (articlesPerPage * page).long
         )
 
     suspend fun getContactPartners() = contactRepository.getContactPartners()
@@ -57,6 +50,7 @@ class OverviewController : KoinComponent, Controller() {
 
         // articleRepository.create(article)
     }
-
-
 }
+
+val Int.long
+    get() = this.toLong()

@@ -86,7 +86,7 @@ class ArticleEditor(
 
                     .unsafeRunAsync { either ->
                         either.fold(
-                            ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!",it) },
+                            ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!", it) },
                             ifRight = {}
                         )
                     }

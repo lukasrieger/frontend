@@ -3,11 +3,11 @@ import mu.KotlinLogging
 
 
 object TyphoonEventBus {
-    operator fun plusAssign(event: Event ) {}
+    operator fun plusAssign(event: Event): Unit = TODO("Event subsystem not yet implemented.")
 }
 
 private val logger = KotlinLogging.logger {}
-val typhoonErrorHandler: (String,Throwable) -> Unit = { message, err ->
+val typhoonErrorHandler: (String, Throwable) -> Unit = { message, err ->
     logger.error(err) { message }
     tornadofx.error(
         header = "Ein Fehler ist aufgetreten",
@@ -23,8 +23,10 @@ val typhoonErrorHandler: (String,Throwable) -> Unit = { message, err ->
                 """.trimMargin(),
         actionFn = {
             when (it) {
-                ButtonType.OK -> {}
-                else -> {}
+                ButtonType.OK -> {
+                }
+                else -> {
+                }
             }
         }
     )
@@ -33,7 +35,7 @@ val typhoonErrorHandler: (String,Throwable) -> Unit = { message, err ->
 inline fun <reified T> launchCatching(message: String, co: () -> T) =
     try {
         co()
-    } catch(e: Throwable) {
-        typhoonErrorHandler(message,e)
+    } catch (e: Throwable) {
+        typhoonErrorHandler(message, e)
         throw e
     }

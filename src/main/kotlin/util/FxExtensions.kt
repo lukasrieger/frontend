@@ -1,6 +1,7 @@
 package util
 
 
+import ErrorEvent
 import TyphoonEventBus
 import arrow.fx.ForIO
 import arrow.fx.IO
@@ -18,7 +19,7 @@ fun <T> TableView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> Que
             result.fold({
                 typhoonErrorHandler("Konnte TableView nicht laden", it)
                 TyphoonEventBus += ErrorEvent.Undefined
-            },{ (articles) ->
+            }, { (_, articles) ->
                 items.setAll(articles)
             })
         }
@@ -29,7 +30,7 @@ fun <T> ListView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> Coll
             result.fold({
                 typhoonErrorHandler("Konnte ListView nicht laden", it)
                 TyphoonEventBus += ErrorEvent.Undefined
-            },{
+            }, {
                 items.setAll(it)
             })
         }

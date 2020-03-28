@@ -1,6 +1,5 @@
 package view
 
-import arrow.fx.IO.Companion.effect
 import controller.OverviewController
 import javafx.geometry.Pos
 import javafx.scene.Parent
@@ -34,7 +33,7 @@ class ArticleOverview : View() {
                         readonlyColumn("State", Article::state).weightedWidth(1.0)
                         readonlyColumn("Archive Date", Article::archiveDate).weightedWidth(1.0)
                         readonlyColumn("Support Type", Article::supportType).weightedWidth(1.0)
-                        readonlyColumn("HasChildArticle",Article::childArticle).weightedWidth(1.0)
+                        readonlyColumn("HasChildArticle", Article::childArticle).weightedWidth(1.0)
                         val expander = rowExpander(true) {
                             label(
                                 """
@@ -59,7 +58,7 @@ class ArticleOverview : View() {
 
                     }.itemsIO {
 
-                        val (items) = effect {interactor.getArticles(this@tabpane.currentPage)}
+                        val (items) = effect { interactor.getArticles(this@tabpane.currentPage) }
 
                         items
                     }
@@ -99,4 +98,4 @@ class ArticleOverview : View() {
 
 
 private val TabPane.currentPage
-        get() = selectionModel.selectedIndex
+    get() = selectionModel.selectedIndex
