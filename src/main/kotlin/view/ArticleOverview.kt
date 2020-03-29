@@ -57,9 +57,7 @@ class ArticleOverview : View() {
 
 
                     }.itemsIO {
-
-                        val (items) = effect { interactor.getArticles(this@tabpane.currentPage) }
-
+                        val items = !effect { interactor.getArticles(this@tabpane.currentPage) }
                         items
                     }
                 }

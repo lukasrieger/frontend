@@ -82,14 +82,12 @@ class ArticleEditor(
                     }
                     webView.engine.loadContent(rendered)
 
+                }.unsafeRunAsync { either ->
+                    either.fold(
+                        ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!", it) },
+                        ifRight = {}
+                    )
                 }
-
-                    .unsafeRunAsync { either ->
-                        either.fold(
-                            ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!", it) },
-                            ifRight = {}
-                        )
-                    }
 
             }
     }
