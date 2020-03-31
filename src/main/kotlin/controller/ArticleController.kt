@@ -15,6 +15,7 @@ import tornadofx.Controller
 import validation.ArticleValidator
 import org.koin.core.inject as insert
 
+
 private val logger = KotlinLogging.logger {}
 
 object ArticleController : KoinComponent, Controller() {
@@ -25,12 +26,14 @@ object ArticleController : KoinComponent, Controller() {
     /**
      * Saves the given article to the database without performing any validation
      * @param article Article
+     * @return Completable
      */
     suspend fun saveArticle(article: ValidArticle): Result<PrimaryKey<Article>> =
         articleRepository.update(article).handleErrorWith {
             TyphoonEventBus += ErrorEvent.CouldNotUpdateArticle(article.a, it)
             Either.left(it)
         }
+
 
     /**
      * Creates the given article in the database
@@ -41,5 +44,6 @@ object ArticleController : KoinComponent, Controller() {
             TyphoonEventBus += ErrorEvent.CouldNotCreateArticle(article.a, it)
             Either.left(it)
         }
+
 
 }

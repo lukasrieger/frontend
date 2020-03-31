@@ -24,21 +24,13 @@ private val modules: List<Module> = listOf(
 class TyphoonApp : App(primaryView = LoadingScreen::class), KoinComponent {
 
     private val articleRepository: ArticleWriter by insert()
-
-
-    // this is redundant but sadly necessary because tornadofx throws an exception when closing the application
-    // if no primaryView was specified
     override val primaryView = LoadingScreen::class
 
     init {
-        startup()
-    }
-
-
-    private fun startup() {
         setupDatabase()
         registerHandlers()
     }
+
 
     private fun registerHandlers() {
         GlobalScope.launch {
@@ -56,6 +48,5 @@ fun main() {
     startKoin {
         modules(modules)
     }
-
     Application.launch(TyphoonApp::class.java)
 }

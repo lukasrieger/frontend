@@ -5,8 +5,8 @@ import javafx.geometry.Pos
 import javafx.scene.Parent
 import javafx.scene.control.TabPane
 import model.Article
-import tornadofx.SmartResize
-import tornadofx.View
+import tornadofx.*
+import util.itemsIO
 
 
 class ArticleOverview : View() {
@@ -57,9 +57,7 @@ class ArticleOverview : View() {
 
 
                     }.itemsIO {
-
-                        val (items) = effect { interactor.getArticles(this@tabpane.currentPage) }
-
+                        val items = !effect { interactor.getArticles(this@tabpane.currentPage) }
                         items
                     }
                 }

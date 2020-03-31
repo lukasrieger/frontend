@@ -5,12 +5,14 @@ import arrow.fx.extensions.fx
 import javafx.scene.web.WebView
 import kotlinx.coroutines.Dispatchers
 import org.fxmisc.richtext.InlineCssTextArea
-import tornadofx.View
-import tornadofx.insets
+import tornadofx.*
 import typhoonErrorHandler
 import viewmodel.ArticleModel
 
-class ArticleEditor : View("Article Editor") {
+class ArticleEditor(
+    //private val article: Article
+) : View("Article Editor") {
+
 
     private lateinit var editor: InlineCssTextArea
 
@@ -40,9 +42,6 @@ class ArticleEditor : View("Article Editor") {
         }
 
         top = hbox {
-
-            label(articleModel.title)
-            label("TestLabel")
 
             button("BOLD") {
                 insets(20, 20, 20, 20)
@@ -83,14 +82,12 @@ class ArticleEditor : View("Article Editor") {
                     }
                     webView.engine.loadContent(rendered)
 
+                }.unsafeRunAsync { either ->
+                    either.fold(
+                        ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!", it) },
+                        ifRight = {}
+                    )
                 }
-
-                    .unsafeRunAsync { either ->
-                        either.fold(
-                            ifLeft = { typhoonErrorHandler("Konnte Markdown-Highlighting nicht aktualisieren!", it) },
-                            ifRight = {}
-                        )
-                    }
 
             }
     }
