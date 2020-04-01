@@ -3,12 +3,12 @@ import model.Article
 
 sealed class Event
 
-sealed class ErrorEvent : Event() {
+sealed class ErrorEvent(val ex: Throwable) : Event() {
 
-    class CouldNotCreateArticle(article: Article, ex: Throwable) : ErrorEvent()
-    class CouldNotUpdateArticle(article: Article, ex: Throwable) : ErrorEvent()
+    data class CouldNotCreateArticle(val article: Article, val err: Throwable) : ErrorEvent(err)
+    data class CouldNotUpdateArticle(val article: Article, val err: Throwable) : ErrorEvent(err)
 
-    object Undefined : ErrorEvent()
+    data class Undefined(val err: Throwable) : ErrorEvent(err)
 
 }
 

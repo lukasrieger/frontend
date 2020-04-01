@@ -85,20 +85,15 @@ object MarkdownHandlerIO {
 
 
     fun handleTextChange(content: String) = IO.fx {
-
         continueOn(Dispatchers.Default)
 
         val parsed = !effect { parser.parse(content) }
-
         val renderIO = effect { renderer.render(parsed) }
         val highlightIO = effect { highlightMarkdown(parsed) }
 
         val (renderAndHighlightPar) = dispatchers()
             .default()
-            .parMapN(
-                renderIO,
-                highlightIO, ::Pair
-            )
+            .parMapN(renderIO, highlightIO, ::Pair)
 
         renderAndHighlightPar
 

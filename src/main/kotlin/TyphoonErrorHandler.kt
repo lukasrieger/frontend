@@ -3,7 +3,11 @@ import mu.KotlinLogging
 
 
 object TyphoonEventBus {
-    operator fun plusAssign(event: Event): Unit = TODO("Event subsystem not yet implemented.")
+    operator fun plusAssign(event: Event): Unit =
+        when (event) {
+            is ErrorEvent -> event.ex.printStackTrace()
+            else -> println(event)
+        }
 }
 
 private val logger = KotlinLogging.logger {}

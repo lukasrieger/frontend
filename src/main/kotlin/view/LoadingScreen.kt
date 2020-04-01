@@ -2,7 +2,6 @@ package view
 
 import javafx.scene.Parent
 import tornadofx.*
-import view.editor.ArticleEditor
 
 class LoadingScreen : View() {
 
@@ -11,7 +10,7 @@ class LoadingScreen : View() {
             label("Work in progress")
             button("Switch to Overview") {
                 action {
-                    replaceWith<ArticleEditor>()
+                    replaceWith<ArticleOverview>()
                 }
             }
         }

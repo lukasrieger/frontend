@@ -1,5 +1,6 @@
 package view
 
+import arrow.core.None
 import controller.OverviewController
 import javafx.geometry.Pos
 import javafx.scene.Parent
@@ -25,15 +26,26 @@ class ArticleOverview : View() {
                 tab("1") {
                     isClosable = false
                     tableview<Article> {
-                        readonlyColumn("ID", Article::id).weightedWidth(0.3)
-                        readonlyColumn("Name", Article::title).weightedWidth(2.0)
+                        readonlyColumn("ID", Article::id).weightedWidth(0.3).cellFormat { text = it.key.toString() }
+                        readonlyColumn("Title", Article::title).weightedWidth(2.0)
                         readonlyColumn("Rubric", Article::rubric).weightedWidth(1.0)
                         readonlyColumn("Priority", Article::rubric).weightedWidth(1.0)
                         readonlyColumn("Target Group", Article::targetGroup).weightedWidth(1.0)
+                        readonlyColumn("SupportType", Article::supportType).weightedWidth(1.0)
+                        readonlyColumn("Subject", Article::subject).weightedWidth(1.0)
                         readonlyColumn("State", Article::state).weightedWidth(1.0)
                         readonlyColumn("Archive Date", Article::archiveDate).weightedWidth(1.0)
-                        readonlyColumn("Support Type", Article::supportType).weightedWidth(1.0)
                         readonlyColumn("HasChildArticle", Article::childArticle).weightedWidth(1.0)
+                        readonlyColumn(
+                            "RecurrentApplicationDeadline",
+                            Article::recurrentInfo
+                        ).cellFormat { optionRecurrentInfo ->
+                            val deadlineText = optionRecurrentInfo.fold(
+                                ifEmpty = { None.toString() },
+                                ifSome = { it.applicationDeadline.toString() }
+                            )
+                            text = deadlineText
+                        }
                         val expander = rowExpander(true) {
                             label(
                                 """
@@ -50,16 +62,12 @@ class ArticleOverview : View() {
                             """.trimIndent()
                             )
                         }
-
                         expander.isVisible = false
 
                         columnResizePolicy = SmartResize.POLICY
 
 
-                    }.itemsIO {
-                        val items = !effect { interactor.getArticles(this@tabpane.currentPage) }
-                        items
-                    }
+                    }.itemsIO { interactor.getArticles(this@tabpane.currentPage) }
                 }
             }
             bottom = hbox {

@@ -3,33 +3,31 @@ package util
 
 import ErrorEvent
 import TyphoonEventBus
-import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.fx
-import arrow.fx.typeclasses.ConcurrentSyntax
 import javafx.scene.control.ListView
 import javafx.scene.control.TableView
 import repository.QueryResult
 import typhoonErrorHandler
 
 
-fun <T> TableView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> QueryResult<T>) =
-    IO.fx(producer)
+fun <T> TableView<T>.itemsIO(producer: suspend () -> QueryResult<T>) =
+    IO.fx { !effect { producer() } }
         .unsafeRunAsync { result ->
             result.fold({
                 typhoonErrorHandler("Konnte TableView nicht laden", it)
-                TyphoonEventBus += ErrorEvent.Undefined
+                TyphoonEventBus += ErrorEvent.Undefined(it)
             }, { (_, articles) ->
                 items.setAll(articles)
             })
         }
 
-fun <T> ListView<T>.itemsIO(producer: suspend ConcurrentSyntax<ForIO>.() -> Collection<T>) =
-    IO.fx(producer)
+fun <T> ListView<T>.itemsIO(producer: suspend () -> Collection<T>) =
+    IO.fx { !effect { producer() } }
         .unsafeRunAsync { result ->
             result.fold({
                 typhoonErrorHandler("Konnte ListView nicht laden", it)
-                TyphoonEventBus += ErrorEvent.Undefined
+                TyphoonEventBus += ErrorEvent.Undefined(it)
             }, {
                 items.setAll(it)
             })

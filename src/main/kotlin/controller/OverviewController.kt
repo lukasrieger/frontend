@@ -12,6 +12,7 @@ import repository.dao.ArticlesTable
 import repository.extensions.getContactPartners
 import tornadofx.Controller
 import util.long
+import validation.ArticleValidator
 import org.koin.core.inject as insert
 
 class OverviewController : KoinComponent, Controller() {
@@ -20,6 +21,7 @@ class OverviewController : KoinComponent, Controller() {
 
     private val articleRepository: ArticleRepository by insert()
     private val contactRepository: ContactReader by insert()
+    private val articleValidator: ArticleValidator by insert()
 
 
     suspend fun getArticles(page: Int, query: Query? = null) =
@@ -33,7 +35,7 @@ class OverviewController : KoinComponent, Controller() {
 
     suspend fun testCreate() = (1..20).forEach {
         val article = Article(
-            title = "Test $it",
+            title = "",
             text = "Text of Article $it",
             rubric = Rubric.BMBF,
             priority = Priority.Medium,
@@ -41,13 +43,19 @@ class OverviewController : KoinComponent, Controller() {
             supportType = SupportType.IndividualResearch,
             subject = Subject.LifeSciences,
             state = ArticleState.Corrected,
-            archiveDate = DateTime.now().plusMonths(4),
+            archiveDate = DateTime.now().plusMonths(2),
             recurrentInfo = None,
-            applicationDeadline = DateTime.now().plusMonths(2),
+            applicationDeadline = DateTime.now().plusMonths(4),
             contactPartner = None,
             childArticle = None,
             parentArticle = None
         )
+
+        val articleOk = articleValidator.validate(article)
+        articleOk.leftMap {
+            it.all.forEach(::println)
+            it
+        }
 
         // articleRepository.create(article)
     }
