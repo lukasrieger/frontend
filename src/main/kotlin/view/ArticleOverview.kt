@@ -11,10 +11,8 @@ import util.itemsIO
 
 class ArticleOverview : View() {
 
-
     private val articles: List<Article> = listOf()
     private val interactor: OverviewController by inject()
-
 
     override val root: Parent =
         borderpane {
