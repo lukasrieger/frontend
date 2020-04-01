@@ -1,5 +1,5 @@
 ![Gradle - Build master](https://github.com/lukasrieger/frontend/workflows/Gradle%20-%20Build%20master/badge.svg)
-![Create Release](https://github.com/lukasrieger/frontend/workflows/Create%20Release/badge.svg)
+![tagged-release](https://github.com/lukasrieger/frontend/workflows/tagged-release/badge.svg)
 # frontend
 Frontend for the next version of FitFactory.
 
