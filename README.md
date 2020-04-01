@@ -1,4 +1,4 @@
-![](https://github.com/lukasrieger/frontend/workflows/Kotlin%20CI%20with%20Gradle/badge.svg)
+![Gradle - Build master](https://github.com/lukasrieger/frontend/workflows/Gradle%20-%20Build%20master/badge.svg)
 # frontend
 Frontend for the next version of FitFactory.
 
