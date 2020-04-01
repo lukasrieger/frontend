@@ -1,7 +1,9 @@
 ![Gradle - Build master](https://github.com/lukasrieger/frontend/workflows/Gradle%20-%20Build%20master/badge.svg)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/lukasrieger/frontend)
 # frontend
-Frontend for the next version of FitFactory.
+Next generation Factory tool, based on functional idioms and best practices (as far as possible).
+
+The backend uses Jetbrains Exposed library to access the databse. Functional data types are provided by the arrow library.
 
 ## Implemented:
   - All common backend/database operations
