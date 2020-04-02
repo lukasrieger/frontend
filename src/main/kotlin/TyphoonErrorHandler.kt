@@ -1,6 +1,14 @@
+import arrow.core.Either
+import arrow.core.handleErrorWith
 import javafx.scene.control.ButtonType
 import mu.KotlinLogging
+import repository.Result
 
+
+fun <T> Result<T>.processErrorWith(eventProducer: (ex: Throwable) -> ErrorEvent): Result<T> = this.handleErrorWith {
+    TyphoonEventBus += eventProducer(it)
+    Either.left(it)
+}
 
 object TyphoonEventBus {
     operator fun plusAssign(event: Event): Unit =
