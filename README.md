@@ -1,5 +1,6 @@
 ![Gradle - Build master](https://github.com/lukasrieger/frontend/workflows/Gradle%20-%20Build%20master/badge.svg)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/lukasrieger/frontend)
+[![Kotlin version badge](https://img.shields.io/badge/kotlin-1.3-blue.svg)](https://kotlinlang.org/docs/reference/whatsnew13.html)
 # frontend
 Next generation Factory tool, based on functional idioms and best practices (as far as possible).
 
