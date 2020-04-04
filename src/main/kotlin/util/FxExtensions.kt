@@ -11,7 +11,7 @@ import repository.QueryResult
 import typhoonErrorHandler
 
 
-fun <T> TableView<T>.itemsIO(producer: suspend () -> QueryResult<T>) =
+fun <T> TableView<T>.itemsIO(producer: suspend () -> QueryResult<T>) = apply {
     IO.fx { !effect { producer() } }
         .unsafeRunAsync { result ->
             result.fold({
@@ -21,15 +21,19 @@ fun <T> TableView<T>.itemsIO(producer: suspend () -> QueryResult<T>) =
                 items.setAll(articles)
             })
         }
+}
 
-fun <T> ListView<T>.itemsIO(producer: suspend () -> Collection<T>) =
+
+fun <T> ListView<T>.itemsIO(producer: suspend () -> QueryResult<T>) = apply {
     IO.fx { !effect { producer() } }
         .unsafeRunAsync { result ->
             result.fold({
                 typhoonErrorHandler("Konnte ListView nicht laden", it)
                 TyphoonEventBus += ErrorEvent.Undefined(it)
-            }, {
-                items.setAll(it)
+            }, { (_, articles) ->
+                items.setAll(articles)
             })
         }
+}
+
 
