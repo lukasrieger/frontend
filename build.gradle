@@ -3,7 +3,6 @@ plugins {
     id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.8'
     id "org.jetbrains.kotlin.kapt" version "1.3.72"
 }
 
@@ -61,7 +60,6 @@ dependencies {
     implementation 'org.jetbrains.exposed:exposed-jodatime:0.22.1'
     implementation 'org.jetbrains.exposed:exposed-jdbc:0.22.1'
 
-    // implementation project('ty-backend')
 
     implementation 'typhoon:backend:1.0-SNAPSHOT'
 
