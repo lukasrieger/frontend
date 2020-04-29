@@ -24,7 +24,8 @@ object ArticleController : KoinComponent, Controller() {
     private val validator: ArticleValidator by insert()
 
     /**
-     * Saves the given article to the database without performing any validation
+     * Saves the given article to the database.
+     * This method assumes that the article has already been valdiated in some way prior.
      * @param article Article
      * @return Completable
      */

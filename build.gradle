@@ -41,7 +41,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 
-    implementation "no.tornado:tornadofx:1.7.20"
+    api "no.tornado:tornadofx:1.7.20"
 
     implementation 'io.github.microutils:kotlin-logging:1.7.6'
 

@@ -61,7 +61,7 @@ class OverviewController : KoinComponent, Controller() {
         )
 
         val articleOk = articleValidator.validate(article)
-        articleOk.mapAsyncV { article -> articleRepository.create(article) }
+        articleOk.mapAsyncV { valid -> articleRepository.create(valid) }
 
         //
     }
